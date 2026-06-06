@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SubSensei Privacy Policy</title>
+  <meta name="description" content="Privacy policy for the SubSensei Chrome extension — synced Japanese subtitles and a hover dictionary for Crunchyroll." />
+  <style>
+    :root { color-scheme: light dark; }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
+      color: #1a1a1a;
+      background: #fff;
+    }
+    @media (prefers-color-scheme: dark) {
+      body { color: #e6e6e6; background: #121212; }
+      th { background: #1e1e1e !important; }
+      td, th { border-color: #333 !important; }
+      a { color: #6ea8fe; }
+      code { background: #1e1e1e; }
+    }
+    h1 { font-size: 1.9rem; margin-bottom: 0.25rem; }
+    h2 { font-size: 1.3rem; margin-top: 2.25rem; border-bottom: 1px solid #e0e0e0; padding-bottom: 0.3rem; }
+    @media (prefers-color-scheme: dark) { h2 { border-color: #333; } }
+    .updated { color: #777; font-size: 0.9rem; margin-top: 0; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: 0.95rem; }
+    th, td { border: 1px solid #ddd; padding: 0.6rem 0.7rem; text-align: left; vertical-align: top; }
+    th { background: #f5f5f5; }
+    code { background: #f0f0f0; padding: 0.1rem 0.35rem; border-radius: 4px; font-size: 0.9em; }
+    ul { padding-left: 1.4rem; }
+    li { margin: 0.35rem 0; }
+    footer { margin-top: 3rem; font-size: 0.85rem; color: #888; border-top: 1px solid #e0e0e0; padding-top: 1rem; }
+    @media (prefers-color-scheme: dark) { footer { border-color: #333; } }
+  </style>
+</head>
+<body>
+  <h1>SubSensei Privacy Policy</h1>
+  <p class="updated">Last updated: 2026-06-05</p>
+
+  <p>
+    SubSensei is a browser extension that overlays synced Japanese subtitles on
+    Crunchyroll and provides a hover dictionary for Japanese learners. This policy
+    describes exactly what data the extension handles and where it goes.
+  </p>
+  <p>
+    <strong>SubSensei has no backend of its own and runs no analytics.</strong> It does not
+    collect, sell, or transmit your data to the developer. The only network
+    requests it makes are to the third-party services listed below, solely to
+    fetch the subtitles and dictionary definitions you ask for.
+  </p>
+
+  <h2>What the extension processes</h2>
+  <table>
+    <thead>
+      <tr><th>Data</th><th>Where it goes</th><th>Why</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>The anime series title shown on the page</td>
+        <td>AniList (<code>graphql.anilist.co</code>)</td>
+        <td>Resolve the title to an AniList ID so the right subtitle can be found.</td>
+      </tr>
+      <tr>
+        <td>AniList ID + episode number + your Jimaku API key</td>
+        <td>Jimaku (<code>jimaku.cc</code>)</td>
+        <td>Download the matching Japanese subtitle file.</td>
+      </tr>
+      <tr>
+        <td>Japanese word/phrase you hover over</td>
+        <td>Jisho (<code>jisho.org</code>)</td>
+        <td>Return the dictionary definition shown in the popup.</td>
+      </tr>
+      <tr>
+        <td>Crunchyroll's own subtitle track URL</td>
+        <td>Crunchyroll CDN</td>
+        <td>Fetch the platform's timed subtitle used as the alignment reference.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    These requests happen only while you are on a Crunchyroll watch page and only
+    in response to your activity (watching an episode, hovering a word). Each of
+    these third parties has its own privacy policy governing the request.
+  </p>
+
+  <h2>What is stored, and where</h2>
+  <p>
+    All extension data is stored <strong>locally in your browser</strong> via
+    <code>chrome.storage.local</code>. Nothing is uploaded to a SubSensei server (there is
+    none). Stored data includes:
+  </p>
+  <ul>
+    <li><strong>Your settings</strong> (overlay font size, color, position, dual-subtitle and debug toggles).</li>
+    <li><strong>Your Jimaku API key</strong>, which you enter yourself. It is stored locally and only sent to Jimaku to authenticate subtitle downloads. It is never sent anywhere else.</li>
+    <li><strong>A local cache of aligned subtitle cues</strong>, keyed by episode, so repeat views are instant and work offline. This cache is bounded and evicts oldest entries automatically. You can clear it any time from the popup ("Clear subtitle cache").</li>
+  </ul>
+
+  <h2>What the extension does NOT do</h2>
+  <ul>
+    <li>No analytics, telemetry, tracking pixels, or fingerprinting.</li>
+    <li>No advertising and no sale or sharing of data with data brokers.</li>
+    <li>No remote error reporting.</li>
+    <li>No access to pages other than Crunchyroll, AniList, Jimaku, and Jisho (see the host permissions in the extension manifest).</li>
+    <li>No collection of personal information such as name, email, or payment data.</li>
+  </ul>
+
+  <h2>Removing your data</h2>
+  <p>
+    Uninstalling the extension removes all locally stored data. You can also clear
+    the subtitle cache and your API key from the extension popup and options page
+    at any time.
+  </p>
+
+  <h2>Changes</h2>
+  <p>
+    If this policy changes, the "Last updated" date above will change and the new
+    version will ship with the extension and appear on this page.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    For questions about this policy, email
+    <a href="mailto:tim@tanrenworks.com">tim@tanrenworks.com</a>.
+  </p>
+
+  <footer>
+    SubSensei &middot; Privacy Policy
+  </footer>
+</body>
+</html>
