@@ -219,7 +219,7 @@
 
   <h2>What is stored on SubSensei's servers, and for how long</h2>
   <ul>
-    <li><strong>Contributed subtitle files and alignment metadata</strong> are kept in a private Cloudflare R2 bucket. No R2 credential is ever given to users, and the bucket is not publicly listable. These files are retained so the library keeps working.</li>
+    <li><strong>Contributed subtitle files and alignment metadata</strong> are kept in a private Cloudflare R2 bucket. No R2 credential is ever given to users. These files are retained so the library keeps working.</li>
     <li><strong>Alignment evidence, catalog indexes and problem reports</strong> are kept in a Cloudflare D1 database, against the pseudonyms described above, until the maintainer removes them.</li>
     <li><strong>Request-rate records</strong> used for abuse control expire after 48 hours.</li>
     <li>Any request logging or retention performed by Cloudflare as the hosting provider is configured separately by the operator and is governed by Cloudflare's own terms.</li>
@@ -260,11 +260,9 @@
     library.</strong> Contributed subtitle files and the pseudonymous alignment
     evidence and reports derived from them remain until the maintainer removes
     them. Because the library has no accounts, there is no self-service deletion
-    page; and because the stored identifiers are pseudonyms derived with a
-    server-only secret, a report generally cannot be traced back to you from the
-    data alone. If you want a contribution or report removed, email the address
-    below with enough detail to identify it (for example the show and episode),
-    and it will be deleted.
+    page. If you want a contribution or report removed, email the address below
+    with enough detail to identify it (for example the show and episode), and I
+    will remove it where it can be identified.
   </p>
   <p>
     You can retract a subtitle problem report yourself at any time with "Undo
