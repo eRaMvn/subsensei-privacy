@@ -73,11 +73,11 @@
   <h3>Automatic lookups</h3>
   <p>
     When you open an episode, the extension asks the library whether a subtitle
-    for it is already known. That lookup sends the platform and platform episode
-    ID, the display title and episode number, a timing fingerprint of the
-    player's own subtitle track, the alignment-engine version, and an
-    installation identifier (below). Lookups happen for every user, with no
-    account token.
+    for it is already known. A lookup sends only four things about the episode —
+    the platform, the platform's episode ID, a timing fingerprint of the player's
+    own subtitle track, and the alignment-engine version — plus an installation
+    identifier (below). It does not send the show title. Lookups happen for every
+    user, with no account token.
   </p>
 
   <h3>Automatic contributions</h3>
@@ -88,7 +88,7 @@
     file</strong>. A contribution includes:
   </p>
   <ul>
-    <li>The show or movie display title, episode number and platform episode ID.</li>
+    <li>The show or movie display title, the episode number and episode title, and the platform's episode ID.</li>
     <li>The original Japanese subtitle file, as downloaded from Jimaku.</li>
     <li>Alignment details — the computed timing transform, the timing fingerprint of the reference track, the alignment-engine version, subtitle provenance and alignment diagnostics.</li>
   </ul>
@@ -146,7 +146,7 @@
     them confirmed or dismissed.
   </p>
 
-  <h2>What the extension sends to third parties</h2>
+  <h2>Every network request the extension makes</h2>
   <table>
     <thead>
       <tr><th>Data</th><th>Where it goes</th><th>Why</th></tr>
@@ -187,8 +187,8 @@
   <p>
     These requests happen only while you are on a supported watch page and only
     in response to your activity (watching an episode, hovering a word, sending a
-    report). Each of these third parties has its own privacy policy governing the
-    request.
+    report). Apart from the first row, which is SubSensei's own service, each of
+    these is a third party with its own privacy policy governing the request.
   </p>
 
   <h2>Processing that stays on your device</h2>
