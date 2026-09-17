@@ -29,7 +29,7 @@
     h3 { font-size: 1.05rem; margin-top: 1.5rem; margin-bottom: 0.3rem; }
     .updated { color: #777; font-size: 0.9rem; margin-top: 0; }
     table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: 0.95rem; }
-    th, td { border: 1px solid #ddd; padding: 0.6rem 0.7rem; text-align: left; vertical-align: top; }
+    th, td { border: 1px solid #ddd; padding: 0.6rem 0.7rem; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
     th { background: #f5f5f5; }
     code { background: #f0f0f0; color: #1a1a1a; padding: 0.1rem 0.35rem; border-radius: 4px; font-size: 0.9em; }
     @media (prefers-color-scheme: dark) { code { background: #2a2a2a; color: #e6e6e6; } }
@@ -67,7 +67,8 @@
   <h2>The shared subtitle library</h2>
   <p>
     Using the shared library requires no SubSensei account, sign-in or
-    subscription. It has two halves, and both are automatic.
+    subscription. Cache lookups and alignment contributions are automatic.
+    Problem reports, where available, are optional and sent only when you submit them.
   </p>
 
   <h3>Automatic lookups</h3>
@@ -112,11 +113,33 @@
     your local cache.
   </p>
 
+  <h3>Optional subtitle problem reports</h3>
+  <p>
+    In versions with <strong>Report a subtitle problem</strong> in the popup,
+    you can choose a fixed problem category, where it happens and, for timing
+    issues, an approximate timing difference. This form has no written comments.
+    When you send or update a report, the extension includes those choices plus
+    the selected subtitle's candidate identifier, platform and episode ID,
+    reference timing fingerprint, alignment-engine version, current playback
+    position in seconds, your personal sync adjustment and the extension version.
+    The report also uses the installation and network pseudonyms described below.
+    It does not upload subtitle text, your Jimaku key or a streaming URL.
+  </p>
+  <p>
+    Reports are reviewed periodically by the maintainer. Counts do not
+    automatically change subtitle selection or alignment votes. Submission limits
+    reduce spam, and each installation has one editable report per subtitle
+    candidate. You can update it or use <strong>Undo report</strong> in the popup.
+    Undo sends a withdrawal with the original report's context and removes the
+    report from the active review queue; it does not delete the server record.
+    Reports and withdrawals are sent on your click, without automatic retries.
+  </p>
+
   <h3>Identifiers</h3>
   <p>
     The extension generates a random <strong>installation identifier (UUID)</strong>
     automatically — it is not tied to your name, email or any account — and sends
-    it with lookups and contributions. The server does not store it as-is:
+    it with lookups, contributions and any problem reports you submit. The server does not store it as-is:
     using a server-only secret, it derives an HMAC pseudonym of that identifier
     and a second pseudonym of the network address that Cloudflare reports for the
     request (the address itself for IPv4; a normalized /64 prefix for IPv6).
@@ -143,9 +166,9 @@
     </thead>
     <tbody>
       <tr>
-        <td>Episode identity, timing fingerprint, installation identifier; contributed subtitles and alignment details</td>
+        <td>Episode identity, timing fingerprint, installation identifier; contributed subtitles and alignment details; optional problem-report choices, playback position, sync adjustment and extension version</td>
         <td>SubSensei shared library (<code>subsensei.tanrenworks.com</code>, hosted on Cloudflare)</td>
-        <td>Reuse and contribute aligned subtitles, as described above.</td>
+        <td>Reuse and contribute aligned subtitles, and review problems you explicitly report, as described above.</td>
       </tr>
       <tr>
         <td>The anime series title shown on the page</td>
@@ -202,6 +225,7 @@
     <li><strong>Your installation identifier</strong> (the random UUID described above).</li>
     <li><strong>Your per-episode manual sync offsets</strong>, so your timing adjustments persist.</li>
     <li><strong>A queue of pending contributions</strong> containing the contribution data described above when it could not be sent immediately. It holds at most ten uploads, and entries expire after 24 hours or eight attempts.</li>
+    <li><strong>Your submitted problem reports</strong>, up to 200 local records for the current library server and installation, so you can reopen, update or undo them. Clearing extension data or uninstalling removes this local history and the installation identifier; it does not delete reports already stored on the server.</li>
     <li><strong>A local cache of aligned subtitle cues</strong>, keyed by episode, so repeat views are instant and work offline. This cache is bounded and evicts oldest entries automatically. You can clear it any time from the popup ("Clear subtitle cache").</li>
   </ul>
   <p>
@@ -216,6 +240,7 @@
   <ul>
     <li><strong>Contributed subtitle files and alignment metadata</strong> are kept in a private Cloudflare R2 bucket. No R2 credential is ever given to users. These files are retained so the library keeps working.</li>
     <li><strong>Alignment evidence</strong> is kept in a Cloudflare D1 database against the pseudonyms described above until the maintainer removes it. D1 also retains the candidate and episode catalog indexes needed to locate stored subtitles.</li>
+    <li><strong>Optional problem reports</strong>, including their fixed choices, episode/subtitle identity, playback position, sync adjustment, extension version, timestamps, withdrawal state and review outcome, are retained in D1 against those pseudonyms until operator removal. A new edit replaces the current report; the first version does not keep a full history of edits or reviews. Withdrawn reports are excluded from the active review queue but remain stored.</li>
     <li><strong>Request-rate records</strong> used for abuse control expire after 48 hours.</li>
     <li>Any request logging or retention performed by Cloudflare as the hosting provider is configured separately by the operator and is governed by Cloudflare's own terms.</li>
   </ul>
